@@ -4,7 +4,7 @@
 import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
 
-export const gallery = document.querySelector('.gallery');
+const gallery = document.querySelector('.gallery');
 const galleryContainer = new SimpleLightbox('.gallery-item a', { 
     className: 'js-lightbox',
     overlayOpacity: 0.8,
@@ -13,8 +13,8 @@ const galleryContainer = new SimpleLightbox('.gallery-item a', {
 });
  
 
-export const createGallery = (dataArr) => {
-    const markup = dataArr
+export const createGallery = (data) => {
+    const markup = data
         .map(
             ({
                 webformatURL,
@@ -49,6 +49,6 @@ export const createGallery = (dataArr) => {
 	</a>
 </li>`
     ).join('')
-    gallery.innerHTML = markup
+    gallery.insertAdjacentHTML('beforeend', markup);
     galleryContainer.refresh()
 }
