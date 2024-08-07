@@ -48,9 +48,21 @@ async function addImageBySearch(event) {
 
 
     try {
-        const totalResults = await getImageBySearch(params);  
-        params.totalPages = Math.ceil(totalResults.totalHits / params.perPage);
-        createGallery(totalResults.hits);
+      const totalResults = await getImageBySearch(params);
+      
+      if (totalResults.hits.length === 0) {
+        iziToast.error({
+            message:
+                `Sorry, there are no images matching your search query. Please try again!`,
+            position: 'topRight',
+            timeout: 2000,
+            icon: '',
+        })
+      }
+
+      params.totalPages = Math.ceil(totalResults.totalHits / params.perPage);
+      createGallery(totalResults.hits);
+      
         if (params.totalPages > 1) {
             refs.loadMore.classList.remove('is-hidden')
             refs.loadMore.addEventListener("click", handleLoadMore)
